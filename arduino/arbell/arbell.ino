@@ -6,7 +6,7 @@ static byte mymac[] = { 0x74,0x69,0x69,0x2D,0x30,0x31 };
 byte Ethernet::buffer[700];
 static uint32_t timer;
 
-const char website[] PROGMEM = "www.google.com";
+const char website[] PROGMEM = "rkdoorbell.appspot.com";
 
 void setup() {
   Serial.begin(9600);         // start serial for output
@@ -53,7 +53,7 @@ void loop() {
 
     Serial.println();
     Serial.print("<<< REQ ");
-    ether.browseUrl(PSTR("/foo/"), "bar", website, my_callback);
+    ether.browseUrl(PSTR("/doorbell"), "", website, my_callback);
 
     // If there was a callout, we can sleep safely for bell 
     // to finish working and only wake up in about 5 seconds
