@@ -2,3 +2,5 @@
 appengine/doorbell/target
 appengine/doorbell/doorbell.iml
 appengine/doorbell/.idea/
+arduino/arbell/settings.h
+appengine/doorbell/src/main/webapp/WEB-INF/settings.properties

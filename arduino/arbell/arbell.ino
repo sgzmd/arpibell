@@ -1,4 +1,5 @@
 #include <EtherCard.h>
+#include "settings.h"
 
 // ethernet interface mac address, must be unique on the LAN
 static byte mymac[] = { 0x74,0x69,0x69,0x2D,0x30,0x31 };
@@ -53,7 +54,7 @@ void loop() {
 
     Serial.println();
     Serial.print("<<< REQ ");
-    ether.browseUrl(PSTR("/doorbell"), "", website, my_callback);
+    ether.browseUrl(PSTR(URL), "", website, my_callback);
 
     // If there was a callout, we can sleep safely for bell 
     // to finish working and only wake up in about 5 seconds
