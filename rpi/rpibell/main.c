@@ -11,7 +11,11 @@
 #include <stdlib.h>
 #include <mach/boolean.h>
 #include "mkaddr.h"
+#include "pushover.h"
 
+#include <curl/curl.h>
+
+const char HELLO[] = "HELLO";
 
 static void displayError(const char *on_what) {
     fputs(strerror(errno), stderr);
@@ -31,6 +35,15 @@ int main(int argc, char **argv) {
     char dgram[512];         /* Recv buffer */
     static int so_reuseaddr = TRUE;
     static char *bc_addr = "127.255.255.2:9097";
+
+    CURL  *curl;
+    CURLcode res;
+
+    curl_global_init(CURL_GLOBAL_ALL);
+    curl = curl_easy_init();
+    if (curl) {
+        puts("Curl was initialized");
+    }
 
     /*
      * Use a server address from the command
@@ -102,6 +115,11 @@ int main(int argc, char **argv) {
 
         fwrite(dgram, bytes_recvd, 1, stdout);
         putchar('\n');
+
+        if (!memcmp(dgram, HELLO, sizeof(HELLO)-1)) {
+            puts("Received doorbell HELLO");
+            send_pushover_message();
+        }
 
         fflush(stdout);
     }
